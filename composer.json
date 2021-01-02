@@ -1,9 +1,27 @@
 {
     "name": "terminusstudio/phpvalidator",
-    "description": "A php validator using respect validator. Built for Slim",
+    "description": "A PHP validator using respect validator. Built for Slim.",
     "type": "library",
+    "keywords": [
+        "TerminusStudio",
+        "Slim",
+        "Validation",
+        "Validator",
+        "Twig Extension",
+        "Respect"
+    ],
+    "homepage": "https://github.com/TerminusStudio/PHPValidator",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sugavanas",
+            "email": "sugavanas@terminus.studio",
+            "homepage": "https://terminus.studio",
+            "role": "Developer"
+        }
+    ],
     "require": {
-        "php": ">=7.4",
+        "php": "^7.4 || ^8.0",
         "psr/http-message": "^1.0",
         "psr/http-server-handler": "^1.0",
         "respect/validation": "2.0.17"
@@ -11,11 +29,14 @@
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5",
         "phpunit/phpunit": "^9.0",
-        "twig/twig": "^3.1"
+        "twig/twig": "^3.1",
+        "slim/slim": "^4.0",
+        "nyholm/psr7": "^1.3"
     },
     "autoload": {
         "psr-4": {
-            "TS\\PHPValidator\\": "src"
+            "TS\\PHPValidator\\": "src",
+            "TS\\PHPValidator\\Tests\\": "tests"
         }
     },
     "extra": {
