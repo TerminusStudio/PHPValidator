@@ -3,7 +3,7 @@ name: CI
 on: [push]
 
 jobs:
-  build-7.4:
+  build-php-7-4:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,4 +16,18 @@ jobs:
           configuration: tests/phpunit.xml
           args: --coverage-text
           php_version: 7.4
+          version: 9.5.0
+  build-php-8-0:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: php-actions/composer@master
+      - name: PHPUnit Tests
+        uses: php-actions/phpunit@dynamic-docker
+        with:
+          bootstrap: vendor/autoload.php
+          configuration: tests/phpunit.xml
+          args: --coverage-text
+          php_version: 8.0
           version: 9.5.0
