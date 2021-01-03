@@ -1,10 +1,12 @@
-# Slim PHP Validator
+# Slim PHP Respect Validation
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
+[![Build Status][ico-build]][link-build]
+[![Scrutinizer][ico-scrutinizer]][link-scrutinizer]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-A PHP validator using respect validator. Built for Slim.
+A SlimPHP validator using respect validation package.
 
 ## Install
 
@@ -101,12 +103,6 @@ Container::set('view', function() {
 ```
 
 There are currently 5 functions supported by the extension,
-
-  new TwigFunction('has_errors', [$this, 'hasErrors']),
-            new TwigFunction('has_error', [$this, 'hasError']),
-            new TwigFunction('get_errors', [$this, 'getErrors']),
-            new TwigFunction('get_error', [$this, 'getError']),
-            new TwigFunction('get_value', [$this, 'getValue']),
             
 - `has_errors()` - Returns true if there are any errors
 - `has_error($key)` - Returns true if `$key` is invalid
@@ -129,8 +125,12 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [ico-version]: https://img.shields.io/packagist/v/TerminusStudio/PHPValidator.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-build]: https://github.com/TerminusStudio/PHPValidator/workflows/CI/badge.svg
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/quality/g/TerminusStudio/PHPValidator
 [ico-downloads]: https://img.shields.io/packagist/dt/TerminusStudio/PHPValidator.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/TerminusStudio/PHPValidator
 [link-downloads]: https://packagist.org/packages/TerminusStudio/PHPValidator
+[link-build]: https://github.com/TerminusStudio/PHPValidator/actions?query=workflow%3ACI
+[link-scrutinizer]: https://scrutinizer-ci.com/g/TerminusStudio/PHPValidator/?branch=main
 [link-author]: https://github.com/TerminusStudio
