@@ -16,7 +16,7 @@ class ValidatorTwig extends AbstractExtension
     /**
      * @var Validator Instance
      */
-    protected Validator $validator;
+    protected $validator;
 
     /**
      * ValidatorTwig constructor.

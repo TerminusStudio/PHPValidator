@@ -11,7 +11,7 @@ class ValidatorMiddleware
     /**
      * @var Validator Instance
      */
-    protected Validator $validator;
+    protected $validator;
 
     /**
      * ValidatorMiddleware constructor.

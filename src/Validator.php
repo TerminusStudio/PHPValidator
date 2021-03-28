@@ -10,18 +10,18 @@ class Validator
     /**
      * @var array values
      */
-    protected array $values = [];
+    protected $values = [];
 
     /**
      * @var array errors
      */
-    protected array $errors = [];
+    protected $errors = [];
 
     /**
      * @var bool Use Session variable to store data
      * If set to true, use ValidationMiddleware to extract the error from the Session.
      */
-    protected bool $useSession;
+    protected $useSession;
 
     /**
      * Validator constructor.
