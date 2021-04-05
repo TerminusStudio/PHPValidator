@@ -104,6 +104,17 @@ class Validator
         $this->values = $values;
     }
 
+
+    /**
+     * Set value by key
+     * @param $key
+     * @param mixed $default
+     */
+    public function setValue($key, $value)
+    {
+        $this->values[$key] = $value;
+    }
+
     /**
      * Get all values
      * @return array
