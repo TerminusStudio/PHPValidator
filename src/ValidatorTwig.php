@@ -83,7 +83,7 @@ class ValidatorTwig extends AbstractExtension
     /**
      * Get Specific value by key
      * @param $key
-     * @param null $default
+     * @param mixed|null $default
      */
     public function getValue($key, $default = null)
     {

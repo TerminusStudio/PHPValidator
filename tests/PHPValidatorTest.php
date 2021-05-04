@@ -63,6 +63,32 @@ class PHPValidatorTest extends TestCase
         $this->assertTrue($v->failed());
     }
 
+    public function testValidObject()
+    {
+        $object = new \stdClass();
+        $object->email = "example@example.com";
+        $object->password = "Abcd1234_";
+        $v = (new Validator())->validate($object, [
+            'email' => v::noWhitespace()->notEmpty()->email(),
+            'password' => v::noWhitespace()->notEmpty()->length(8)->alnum('_')
+        ]);
+
+        $this->assertTrue($v->isValid());
+    }
+
+    public function testNonValidObject()
+    {
+        $object = new \stdClass();
+        $object->email = "example";
+        $object->password = "1234";
+        $v = (new Validator())->validate($object, [
+            'email' => v::noWhitespace()->notEmpty()->email(),
+            'password' => v::noWhitespace()->notEmpty()->length(8)->alnum('_')
+        ]);
+
+        $this->assertTrue($v->failed());
+    }
+
     public function testMiddleware()
     {
         $config = [

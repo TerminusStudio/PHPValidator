@@ -33,7 +33,7 @@ class Validator
     }
 
     /**
-     * @param Request|array $params
+     * @param Request|array|object $params
      * @param array $rules
      * @param mixed $default
      * @return $this
@@ -45,6 +45,8 @@ class Validator
             return $this->validateRequest($params, $rules, $default);
         } elseif (is_array($params)) {
             return $this->validateArray($params, $rules, $default);
+        } elseif (is_object($params)) {
+            return $this->validateObject($params, $rules, $default);
         }
 
         throw new \Exception('Unknown type given for $params.');
@@ -58,7 +60,21 @@ class Validator
      */
     public function validateRequest(Request $request, array $rules, $default = null)
     {
-        $params = $request->getParsedBody();
+        $params = $request->getParsedBody() ?? [];
+
+        //Call back validate function since params can be an object or array
+        return $this->validate($params, $rules, $default);
+    }
+
+    /**
+     * @param object $object
+     * @param array $rules
+     * @param mixed $default
+     * @return $this
+     */
+    public function validateObject(object $object, array $rules, $default = null)
+    {
+        $params = get_object_vars($object);
         return $this->runValidation($params, $rules, $default);
     }
 
