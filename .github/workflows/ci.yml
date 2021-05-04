@@ -1,33 +1,30 @@
 name: CI
 
-on: [push]
+on: [ push ]
 
 jobs:
-  build-php-7-4:
+  tests:
+    name: Tests PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [ 7.3, 7.4, 8.0 ]
+        experimental: [ false ]
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: php-actions/composer@master
-      - name: PHPUnit Tests
-        uses: php-actions/phpunit@dynamic-docker
-        with:
-          bootstrap: vendor/autoload.php
-          configuration: tests/phpunit.xml
-          args: --coverage-text
-          php_version: 7.4
-          version: 9.5.0
-  build-php-8-0:
-    runs-on: ubuntu-latest
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    steps:
-      - uses: actions/checkout@v2
-      - uses: php-actions/composer@master
-      - name: PHPUnit Tests
-        uses: php-actions/phpunit@dynamic-docker
+      - name: Set up PHP ${{ matrix.php }}
+        uses: shivammathur/setup-php@v2
         with:
-          bootstrap: vendor/autoload.php
-          configuration: tests/phpunit.xml
-          args: --coverage-text
-          php_version: 8.0
-          version: 9.5.0
+          php-version: ${{ matrix.php }}
+
+      - name: Install Composer dependencies
+        run: |
+          composer install --no-progress --prefer-dist --optimize-autoloader
+
+      - name: Run Tests
+          run: php vendor/bin/phpunit --configuration tests\phpunit.xml

@@ -33,16 +33,54 @@ class Validator
     }
 
     /**
+     * @param Request|array $params
+     * @param array $rules
+     * @param mixed $default
+     * @return $this
+     * @throws \Exception
+     */
+    public function validate($params, array $rules, $default = null): Validator
+    {
+        if ($params instanceof Request) {
+            return $this->validateRequest($params, $rules, $default);
+        } elseif (is_array($params)) {
+            return $this->validateArray($params, $rules, $default);
+        }
+
+        throw new \Exception('Unknown type given for $params.');
+    }
+
+    /**
      * @param Request $request
      * @param array $rules
-     * @param null $default
+     * @param mixed $default
      * @return $this
      */
-    public function validate(Request $request, array $rules, $default = null): Validator
+    public function validateRequest(Request $request, array $rules, $default = null)
     {
-        //$this->values = [];
-        //$this->errors = [];
         $params = $request->getParsedBody();
+        return $this->runValidation($params, $rules, $default);
+    }
+
+    /**
+     * @param array $params
+     * @param array $rules
+     * @param mixed $default
+     * @return $this
+     */
+    public function validateArray(array $params, array $rules, $default = null)
+    {
+        return $this->runValidation($params, $rules, $default);
+    }
+
+    /**
+     * @param array $params
+     * @param array $rules
+     * @param mixed $default
+     * @return Validator
+     */
+    protected function runValidation(array $params, array $rules, $default = null)
+    {
         foreach ($rules as $field => $rule) {
             try {
                 $param = isset($params[$field]) ? $params[$field] : $default;
@@ -57,7 +95,6 @@ class Validator
             $_SESSION['TS_PHPValidator_Errors'] = $this->errors;
             $_SESSION['TS_PHPValidator_Values'] = $this->values;
         }
-
         return $this;
     }
 

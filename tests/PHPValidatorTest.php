@@ -41,6 +41,28 @@ class PHPValidatorTest extends TestCase
         $this->assertTrue($v->failed());
     }
 
+    public function testValidArray()
+    {
+        $array = ["email" => "example@example.com", "password" => "Abcd1234_"];
+        $v = (new Validator())->validate($array, [
+            'email' => v::noWhitespace()->notEmpty()->email(),
+            'password' => v::noWhitespace()->notEmpty()->length(8)->alnum('_')
+        ]);
+
+        $this->assertTrue($v->isValid());
+    }
+
+    public function testNonValidArray()
+    {
+        $array = ["email" => "example", "password" => "1234"];
+        $v = (new Validator())->validate($array, [
+            'email' => v::noWhitespace()->notEmpty()->email(),
+            'password' => v::noWhitespace()->notEmpty()->length(8)->alnum('_')
+        ]);
+
+        $this->assertTrue($v->failed());
+    }
+
     public function testMiddleware()
     {
         $config = [
@@ -113,7 +135,8 @@ class PHPValidatorTest extends TestCase
         string $uri,
         string $method = 'GET',
         array $data = []
-    ): Request {
+    ): Request
+    {
         $headers = [
             'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
             'HTTP_ACCEPT_CHARSET' => 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
